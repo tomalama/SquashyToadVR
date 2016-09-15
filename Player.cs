@@ -11,6 +11,7 @@ public class Player : MonoBehaviour {
     private CardboardHead head;
     private Rigidbody rb;
     private float lastJumpRequestTime = 0.0f;
+    private GameState state;
 
     // Use this for initialization
     void Start ()
@@ -18,7 +19,8 @@ public class Player : MonoBehaviour {
         Cardboard.SDK.OnTrigger += PullTrigger;
         head = GameObject.FindObjectOfType<CardboardHead>();
         rb = GetComponent<Rigidbody>();
-	}
+        state = FindObjectOfType<GameState>();
+    }
 
     private void PullTrigger()
     {
@@ -33,9 +35,12 @@ public class Player : MonoBehaviour {
 
     private void Jump()
     {
-        float jumpAngleInRadians = jumpAngleInDegrees * Mathf.Deg2Rad;
-        Vector3 jumpVector = Vector3.RotateTowards(LookDirection(), Vector3.up, jumpAngleInRadians, 0);
-        rb.velocity = jumpVector * jumpSpeed;
+    	if (!state.IsGameOver)
+        {
+        	float jumpAngleInRadians = jumpAngleInDegrees * Mathf.Deg2Rad;
+        	Vector3 jumpVector = Vector3.RotateTowards(LookDirection(), Vector3.up, jumpAngleInRadians, 0);
+        	rb.velocity = jumpVector * jumpSpeed;
+        }
     }
 
     public Vector3 LookDirection()
@@ -52,10 +57,4 @@ public class Player : MonoBehaviour {
             lastJumpRequestTime = 0f;
         }
     }
-
-    // Update is called once per frame
-    void Update ()
-    {
-        //text.text = head.Gaze.ToString();
-	}
 }
