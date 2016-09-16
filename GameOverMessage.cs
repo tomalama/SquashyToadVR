@@ -9,22 +9,22 @@ public class GameOverMessage : MonoBehaviour {
     private Player player;
 
 	// Use this for initialization
-	void Start () 
-	{
-        	player = GameObject.FindObjectOfType<Player>();
+	void Start ()
+    {
+        player = GameObject.FindObjectOfType<Player>();
 	}
 	
 	// Update is called once per frame
-	void LateUpdate () 
-	{
-        	TrackPlayerHead();
+	void LateUpdate ()
+    {
+        TrackPlayerHead();
 	}
-	
-	void TrackPlayerHead()
-    	{
-        	transform.rotation = Quaternion.LookRotation(player.LookDirection());
-        	transform.position = player.transform.position;
-        	transform.position += player.LookDirection() * UIDistance;
-        	transform.position += Vector3.up * UIHeight;
-    	}
+
+    void TrackPlayerHead()
+    {
+        transform.rotation = Quaternion.LookRotation(player.LookDirection());
+        transform.position = player.transform.position;
+        transform.position += player.LookDirection() * UIDistance;
+        transform.position += Vector3.up * UIHeight;
+    }
 }
