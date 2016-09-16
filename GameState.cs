@@ -2,34 +2,19 @@
 using System.Collections;
 
 public class GameState : MonoBehaviour {
-    
-    public bool IsGameOver { get; set; }
-    
-    private Canvas canvas;
-    
-    public void ResetGame()
+
+    public int highScore;
+
+	void Awake()
     {
-        Application.LoadLevel("Main");
+        DontDestroyOnLoad(gameObject);
     }
 
-    public void BackToMenu()
+    public void UpdateHighScore(int currentScore)
     {
-        Application.LoadLevel("SplashScreen");
-    }
-    
-    // Use this for initialization
-    void Start()
-    {
-        canvas = FindObjectOfType<Canvas>();
-        canvas.enabled = false;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if(IsGameOver == true)
+        if (currentScore > highScore)
         {
-            canvas.enabled = true;
+            highScore = currentScore;
         }
     }
 }
